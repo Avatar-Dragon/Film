@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var jwt = require('jwt-simple');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -44,5 +45,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//app.use(jwt.init())
+//app.set('jwtTokenSecret', 'FILM_SECRET_STRING');
+//console.log(app.get('jwtTokenSecret'));
+//console.log(app);
 
 module.exports = app;
