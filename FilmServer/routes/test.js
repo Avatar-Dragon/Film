@@ -3,12 +3,15 @@ var router = express.Router();
 var cookie = require('cookie');
 var jwt = require('jwt-simple');
 var jwtauth = require('../middleWare/jwtauth.js');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
 var moment = require('moment');
 
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var url = 'mongodb://localhost:27017/Films';
 
 const crypto = require('crypto');
 
@@ -81,6 +84,40 @@ router.post('/jwt', [jsonParser, jwtauth], function(req, res, next) {
       user: JSON.stringify(user)
     });
     
+  }
+});
+
+// 返回number个电影
+var findMovies = function(db, number, callback) {
+  // Get the movieDescriptions collection
+  var collection = db.collection('movieDescriptions');
+  // Find some documents
+  collection.find({}, {'_id': 0}).limit(number).toArray(function(err, docs) {
+    assert.equal(err, null);
+    console.log("Found the following records");
+    //console.log(docs)
+    callback(docs);
+  });
+}
+
+router.get('/movie', function(req, res, next) {
+  var number = Number(req.query.number);
+  var movies = {};
+  // 如果返回全部电影
+  if (number >= 1) {
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected successfully to server");
+      
+      findMovies(db, number, function(docs) {
+        movies.number = docs.length;
+        movies.moviesList = docs;
+        res.json(movies);
+        db.close();
+      });
+    });
+  } else {
+    res.send('number is wrong!');
   }
 });
 
