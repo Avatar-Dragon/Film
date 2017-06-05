@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   var imageName = req.query.imageName;
 //  console.log(imageName);
   if (imageName !== undefined) {
-    var imagePath = '../oriData/image/' + imageName;
+    var imagePath = '../oriData/images/' + imageName;
     res.sendFile(path.resolve(imagePath), function (err) {
       if (err) {
         console.log('err');
