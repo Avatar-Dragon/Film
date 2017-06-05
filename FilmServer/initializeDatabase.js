@@ -171,12 +171,12 @@ for (i = 0; i < tempScreeningList.length; i++) {
     movieName: tempScreeningList[i].movieName,
     cinema: tempScreeningList[i].cinema,
     screeningRoom: tempScreeningList[i].screeningRoom,
-    screeningList: []
+    screeningTimeList: []
   }
   tempDate = tempScreeningList[i].screening.match(patternDate)[0];
   tempHourList = tempScreeningList[i].screening.match(patternHour);
   for (j = 0; j < tempHourList.length; j++) {
-    tempScreeningItem.screeningList.push(tempDate + " " + tempHourList[j]);
+    tempScreeningItem.screeningTimeList.push(tempDate + " " + tempHourList[j]);
   }
   
   finalScreeningList.push(tempScreeningItem);
