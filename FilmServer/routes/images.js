@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
         console.log('err');
         next(err);
       } else {
-        console.log('Send: ', imageName);
+        console.log('Send a image');
       }
     });
   } else {
