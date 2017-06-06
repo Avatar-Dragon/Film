@@ -13,6 +13,7 @@ var images = require('./routes/images');
 var movies = require('./routes/movies');
 var cinemas = require('./routes/cinemas');
 var screenings = require('./routes/screenings');
+var orders = require('./routes/orders');
 
 
 var app = express();
@@ -30,12 +31,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/user', users);
 app.use('/test', test);
 app.use('/images', images);
 app.use('/movies', movies);
 app.use('/cinemas', cinemas);
 app.use('/screenings', screenings);
+app.use('/orders', orders);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
