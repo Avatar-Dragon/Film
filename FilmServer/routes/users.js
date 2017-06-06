@@ -105,6 +105,7 @@ router.post('/register', function(req, res, next) {
           
           insertUser(db, user, function(result2) {
 //            console.log(result2);
+            console.log('register success.');
             res.jsonp({
               infornation: 'success',
               detail: ''
@@ -112,6 +113,7 @@ router.post('/register', function(req, res, next) {
           });
           
         } else {
+          console.log('register false, the user is exist.');
           res.jsonp({
             infornation: 'false',
             detail: 'The user is exist.'
@@ -123,6 +125,7 @@ router.post('/register', function(req, res, next) {
     });
     
   } else {
+    console.log('register false, no post username or password.');
     res.jsonp({
       infornation: 'false',
       detail: 'No post username or password.'
@@ -143,6 +146,7 @@ router.post('/login', function(req, res, next) {
       
       findUserByName(db, username, function(result) {
         if (result.length == 0) {
+          console.log('login false, the user is not exist.');
           res.jsonp({
             infornation: 'false',
             detail: 'The user is not exist.'
@@ -152,11 +156,13 @@ router.post('/login', function(req, res, next) {
           hash.update(password);
           var hashPassword = hash.digest('hex');
           if (result[0].password == hashPassword) {
+            console.log('login success.');
             res.jsonp({
               infornation: 'success',
               detail: ''
             });
           } else {
+            console.log('login false, the password is wrong.');
             res.jsonp({
               infornation: 'false',
               detail: 'Password is wrong.'
@@ -169,6 +175,7 @@ router.post('/login', function(req, res, next) {
     });
     
   } else {
+    console.log('login false, no post username or password.');
     res.jsonp({
       infornation: 'false',
       detail: 'No post username or password.'
@@ -187,6 +194,14 @@ router.post('/getAllOrders', function(req, res, next) {
     getAllOrdersByUserName(db, username, function(result) {
 //      console.log(result);
       var finalOrderList = [];
+      if (result.length == 0) {
+        db.close();
+        finalOrderList = {
+          number: 0,
+          orderList: []
+        }
+        return;
+      }
       for (var i = 0; i < result.length; i++) {
         getFinalOrder(db, result, i, finalOrderList, function() {
           db.close();
