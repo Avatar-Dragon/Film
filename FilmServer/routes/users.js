@@ -200,7 +200,6 @@ router.post('/getAllOrders', function(req, res, next) {
           number: 0,
           orderList: []
         }
-        res.jsonp(finalOrderList);
         return;
       }
       for (var i = 0; i < result.length; i++) {
