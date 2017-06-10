@@ -110,7 +110,7 @@ for (var i = 0; i < result.length; i++) {
     screeningRoom: thedata.match(pattern9)[0].substring(5)
   };
   tempScreeningItem = {
-    movieName: thedata.match(pattern2)[0].substring(4),
+    movieName: thedata.match(pattern2)[0].substring(5),
     cinema: thedata.match(pattern7)[0].substring(4),
     screeningRoom: thedata.match(pattern9)[0].substring(5),
     screening: thedata.match(pattern8)[0].substring(4)
@@ -224,6 +224,8 @@ function toDoInsertScreeningItem() {
 
         findMovieId(db, finalScreeningList[n].movieName, function(movie) {
           findCinemaId(db, finalScreeningList[n].cinema, function(cinema) {
+//            console.log(movie);
+//            console.log(cinema);
             var movieId = movie[0]._id;
             var cinemaId = cinema[0]._id;
             var tempScreeningItem = {};
