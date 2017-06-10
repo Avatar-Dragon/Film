@@ -46,7 +46,7 @@ var insertScreeningItem = function(db, document, callback) {
 
 
 var findMovieId = function(db, movieName, callback) {
-  var cursor = db.collection('movieDescriptions').find({"originalName": movieName});
+  var cursor = db.collection('movieDescriptions').find({"chineseName": movieName});
   cursor.toArray(function(err, docs) {
     assert.equal(err, null);
     console.log("Found the movieId");
